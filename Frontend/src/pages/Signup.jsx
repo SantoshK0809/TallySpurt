@@ -28,7 +28,7 @@ export default function Signup() {
             <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">How to get in</p>
             <ul className="mt-2 space-y-2 text-sm text-muted-foreground">
               <li><span className="font-semibold text-foreground">Shop owner?</span> Ask the site admin to create your shop and account.</li>
-              <li><span className="font-semibold text-foreground">Salesperson?</span> Ask your shop owner to add you from their <span className="font-mono text-xs">/users</span> page.</li>
+              <li><span className="font-semibold text-foreground">Salesperson?</span> Ask your shop owner to add you from their <span className="font-mono text-xs">admin panel</span> page.</li>
             </ul>
           </div>
 
