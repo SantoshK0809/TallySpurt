@@ -379,8 +379,8 @@
 import { useEffect, useRef, useState } from "react";
 // import { useStore, formatINR } from "@/lib/store.jsx";
 // import { useAuth } from "@/lib/auth.jsx";
-import { useStore } from "../lib/useStore.jsx";
-import { formatINR } from "../lib/storeHelpers.jsx";
+import { useStore } from "../../../lib/useStore.jsx";
+import { formatINR } from "../../../lib/storeHelpers.jsx";
 import { ScanLine, Plus, Minus, Trash2, Printer, CheckCircle2, X, User, Phone, BadgeCheck } from "lucide-react";
 import { toast } from "sonner";
 

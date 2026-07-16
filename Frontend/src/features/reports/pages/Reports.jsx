@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { useStore } from "../lib/useStore.jsx";
-import { formatINR } from "../lib/storeHelpers.jsx";
+import { useStore } from "../../../lib/useStore.jsx";
+import { formatINR } from "../../../lib/storeHelpers.jsx";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from "recharts";
 import { Download } from "lucide-react";
 import { toast } from "sonner";

@@ -24,7 +24,7 @@ import { RouterProvider } from "react-router-dom";
 
 import "./index.css";
 
-import router from "./routes/Routes.jsx";
+import router from "../src/app/routes/Routes.jsx";
 import { StoreProvider } from "./lib/Store.jsx";
 import { Toaster } from "sonner";
 
