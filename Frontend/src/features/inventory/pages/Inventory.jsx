@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { useStore } from "../lib/useStore.jsx";
-import { formatINR } from "../lib/storeHelpers.jsx";
+import { useStore } from "../../../lib/useStore.jsx";
+import { formatINR } from "../../../lib/storeHelpers.jsx";
 import { Plus, Search, Pencil, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 

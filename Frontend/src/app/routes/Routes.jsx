@@ -55,40 +55,35 @@
 //     },
 //   ]);
 
-
 // export default router;
 
-
-
 import React from "react";
-import {
-  createBrowserRouter,
-  Navigate,
-} from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 // Public pages
-import Landing from "../pages/Landing.jsx";
-import Login from "../pages/Login.jsx";
+import Landing from "../../landing/pages/Landing.jsx";
+import Login from "../../features/auth/pages/Login.jsx";
 
 // Shop application
-import DashboardLayout from "../layouts/DashboardLayout.jsx";
-import Dashboard from "../pages/Dashboard.jsx";
-import Billing from "../pages/Billing.jsx";
-import Reports from "../pages/Reports.jsx";
-import Inventory from "../pages/Inventory.jsx";
-import Customers from "../pages/Customers.jsx";
+import DashboardLayout from "../../layouts/DashboardLayout.jsx";
+import Dashboard from "../../features/dashboard/pages/Dashboard.jsx";
+import Billing from "../../features/billing/pages/Billing.jsx";
+import Reports from "../../features/reports/pages/Reports.jsx";
+import Inventory from "../../features/inventory/pages/Inventory.jsx";
+import Customers from "../../features/customers/pages/Customers.jsx";
 
 // Platform Admin
-import AdminLayout from "../components/admin/AdminLayout.jsx";
-import AdminLogin from "../pages/admin/AdminLogin.jsx";
-import AdminDashboard from "../pages/admin/AdminDashboard.jsx";
-import Shops from "../pages/admin/Shops.jsx";
-import CreateShop from "../pages/admin/CreateShop.jsx";
-import ShopDetails from "../pages/admin/ShopDetails.jsx";
-import AdminSettings from "../pages/admin/AdminSettings.jsx";
+import AdminLayout from "../../features/platform-admin/components/AdminLayout.jsx";
+import AdminLogin from "../../features/platform-admin/pages/AdminLogin.jsx";
+import AdminDashboard from "../../features/platform-admin/pages/AdminDashboard.jsx";
+import Shops from "../../features/platform-admin/pages/Shops.jsx";
+import CreateShop from "../../features/platform-admin/pages/CreateShop.jsx";
+import ShopDetails from "../../features/platform-admin/pages/ShopDetails.jsx";
+import AdminSettings from "../../features/platform-admin/pages/AdminSettings.jsx";
+import Salespersons from "../../features/employees/pages/Salespersons.jsx";
+import ShopSettings from "../../features/shop-settings/pages/ShopSettings.jsx";
 
 const router = createBrowserRouter([
-
   // PUBLIC ROUTES
   {
     path: "/",
@@ -100,7 +95,6 @@ const router = createBrowserRouter([
     element: <Login />,
   },
 
-  
   // PLATFORM ADMIN AUTHENTICATION
 
   {
@@ -108,7 +102,6 @@ const router = createBrowserRouter([
     element: <AdminLogin />,
   },
 
- 
   // PLATFORM ADMIN APPLICATION
 
   {
@@ -154,7 +147,6 @@ const router = createBrowserRouter([
     ],
   },
 
-  
   // SHOP APPLICATION
   // shopOwner + salesperson
 
@@ -185,6 +177,14 @@ const router = createBrowserRouter([
       {
         path: "/customers",
         element: <Customers />,
+      },
+      {
+        path: "/employees",
+        element: <Salespersons />,
+      },
+      {
+        path: "/shop-settings",
+        element: <ShopSettings />,
       },
     ],
   },

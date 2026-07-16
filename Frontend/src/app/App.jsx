@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
-import Billing from './pages/Billing'
-import Reports from './pages/Reports'
-import Inventory from './pages/Inventory'
-import Customers from './pages/Customers'
-import DashboardLayout from './layouts/DashboardLayout'
+import Dashboard from '../pages/Dashboard'
+import Billing from '../pages/Billing'
+import Reports from '../pages/Reports'
+import Inventory from '../pages/Inventory'
+import Customers from '../pages/Customers'
+import DashboardLayout from '../layouts/DashboardLayout'
 
 const App = () => {
   return (
