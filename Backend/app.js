@@ -1,14 +1,23 @@
-// const dotenv = require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const express = require("express");
+const cors = require("cors");
+
+const notFoundHandler = require("./src/middleware/notFound.middleware");
+const errorHandler = require("./src/middleware/error.middleware");
+
 const app = express();
 
-// Middleware
+// Global middleware
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+// API routes will be registered here later
+// app.use("/api/v1/...", routes);
+
+// Must remain after all routes
+app.use(notFoundHandler);
+
+// Global error handler must be last
+app.use(errorHandler);
+
+module.exports = app;
