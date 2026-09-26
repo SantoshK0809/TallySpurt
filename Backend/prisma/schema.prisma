@@ -11,18 +11,105 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRole {
+  SHOP_OWNER
+  SHOP_EMPLOYEE
+}
+
+enum ShopStatus {
+  ACTIVE
+  SUSPENDED
+  EXPIRED
+}
 
 model PlatformAdmin {
-  id                String    @id @default(uuid())
-  name              String
-  email             String    @unique
-  passwordHash      String
+  id           String @id @default(uuid())
+  name         String
+  email        String @unique
+  passwordHash String
 
-  isActive          Boolean   @default(true)
+  isActive Boolean @default(true)
 
   lastLoginAt       DateTime?
   passwordChangedAt DateTime?
 
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id           String @id @default(uuid())
+  email        String @unique
+  passwordHash String
+
+  passwordSet Boolean @default(false)
+
+  inviteTokenHash String?   @unique
+  inviteExpiresAt DateTime?
+
+  firstName String?
+  lastName  String?
+
+  role UserRole
+
+  shopId String?
+  shop   Shop?   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+  isActive Boolean @default(true)
+
+  lastLoginAt       DateTime?
+  passwordChangedAt DateTime?
+
+  refreshTokens RefreshToken[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([shopId])
+}
+
+model Shop {
+  id String @id @default(uuid())
+
+  name String
+  slug String @unique
+
+  businessName String?
+  phone        String?
+  email        String?
+  address      String?
+  city         String?
+  state        String?
+  pincode      String?
+  gstNumber    String?
+  logoUrl      String?
+
+  status ShopStatus @default(ACTIVE)
+
+  isDemo        Boolean   @default(false)
+  demoExpiresAt DateTime?
+
+  users User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isDemo])
+}
+
+model RefreshToken {
+  id String @id @default(uuid())
+
+  tokenHash String @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
 }
