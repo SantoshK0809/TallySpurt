@@ -1,49 +1,53 @@
-const validate = require("express-validator");
-const errorHandler = require("../middleware/error.middleware");
-const pg = require("@prisma/adapter-pg");
-const jwt = require("jsonwebtoken");
+const asyncHandler = require("../utils/asyncHandler");
+const ApiResponse = require("../utils/ApiResponse");
+const authService = require("../services/auth.service");
 
-async function handleUserLogin(req, res) {
-  try {
-    const { email, password, shopName } = req.body;
-    if (!email || !password || ! shopName) {
-      return res
-        .status(400)
-        .json({ message: "Please enter valid credentials." });
-    }
-    //const user = await PrismaPg( SELECT user WHERE email= `${email}`)
+const handleUserLogin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-    if (!user) {
-      return res.status(404).json({ message: "User with mail doesn't exist" });
-    }
+  const result = await authService.loginUserService(email, password);
 
-    const token = jwt.sign({ email, user_name }, process.env.JWT_SECRET);
-    res.cookies(token);
+  return res.status(200).json(
+    new ApiResponse(200, result, "Login successful")
+  );
+});
 
-    return res.status(200).json({
-      token,
-      user,
-      message: "User fetched successfully.",
-    });
-  } catch (err) {
-    console.log(`Something went wrong while login user process - ${err}`);
-    throw errorHandler(err);
-  }
-}
+const handlRefreshTokenRotation = asyncHandler(async (req, res) => {
+  const { refreshToken } = req.body;
 
-async function handleUserLogout(req, res) {
-  try {
-    const header = req.authHeader(Brerar);
-    const token = header.split[1];
-    if(!token){
-        return res.status(403).json({message: "You can't be logged out"})
-    }
+  const result = await authService.refreshUserSessionService(refreshToken);
 
-    const blackListToken = await pg()
-  } catch (err) {
-    console.log(`Something went while logged out process - ${err}`);
-    return res.status(500).json({ message: "Internal Server error." });
-  }
-}
+  return res.status(200).json(
+    new ApiResponse(200, result, "Session refreshed successfully")
+  );
+});
 
-module.exports = { handleUserLogin, handleUserLogout };
+const handleUserLogout = asyncHandler(async (req, res) => {
+  const { refreshToken } = req.body;
+
+  await authService.logoutUserService(refreshToken);
+
+  return res.status(200).json(
+    new ApiResponse(200, null, "Logout successful")
+  );
+});
+
+const handleSetPassword = asyncHandler(async (req, res) => {
+  const { password } = req.body;
+
+  const user = await authService.setUserPasswordService(
+    req.user.sub,
+    password
+  );
+
+  return res.status(200).json(
+    new ApiResponse(200, user, "Password set successfully")
+  );
+});
+
+module.exports = {
+  handleUserLogin,
+  handlRefreshTokenRotation,
+  handleUserLogout,
+  handleSetPassword,
+};
